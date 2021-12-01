@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <h2>List of Numbers to Hex String</h2>
+
+  <p>
+    <textarea id="numbersToHexStringInput" rows="3" cols="80">[1,250,13]</textarea>
+  </p>
+
+  <p>
+    <button onclick="numbersToHexString()">Convert</button>
+  </p>
+
+  <p>
+    <textarea id="justHexOutput" rows="3" cols="80">01fa0d</textarea>
+  </p>
+
+  <p>
+    <textarea id="slashXHexOutput" rows="3" cols="80">b"\x01\xFA\x0D"</textarea>
+  </p>
+
+  <script>
+    function numbersToHexString() {
+      let inputTextArea = document.getElementById("numbersToHexStringInput");
+      let justHexTextArea = document.getElementById("justHexOutput");
+      let slashXHexTextArea = document.getElementById("slashXHexOutput");
+
+      let inputText = inputTextArea.value;
+      let inputArray = JSON.parse(inputText);
+
+      let justHexString = "";
+      let slashXHexString = "b\"";
+      for (let i = 0; i < inputArray.length; i++) {
+        elementInHex = inputArray[i].toString(16);
+        if (elementInHex.length < 2) {
+          elementInHex = "0" + elementInHex;
+        }
+        justHexString += elementInHex;
+        slashXHexString += "\\x" + elementInHex.toUpperCase();
+      }
+
+      slashXHexString += "\""
+
+      justHexTextArea.value = justHexString;
+      slashXHexTextArea.value = slashXHexString;
+    }
+  </script>
+</body>
